@@ -276,7 +276,7 @@ const Home: React.FC = () => {
                                 <a
                                   href={datas.html_url}
                                   target='_blank'
-                                  className='text-md md:text-xl font-bold'
+                                  className='text-md md:text-xl text-blue-500 font-bold'
                                   rel='noreferrer'>
                                   {datas.name}
                                 </a>
