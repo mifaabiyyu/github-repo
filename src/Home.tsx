@@ -16,9 +16,9 @@ const Home: React.FC = () => {
   const [responseData, setResponseData] = useState([]);
   const [responseDataRepo, setResponseDataRepo] = useState([]);
   const [open, setOpen] = useState(0);
+  const [countTotal, setCountTotal] = useState(0);
   const [messageError, setMessageError] = useState("");
-  const [text, setText] = useState("");
-  const [isTyping, setIsTyping] = useState(true);
+
   const sentence = "Hello, world!";
 
   const handleOpen = async (value: any, username: any) => {
@@ -92,8 +92,8 @@ const Home: React.FC = () => {
         setIsLoading(false);
         return setMessageError(resData.message);
       }
-
       const { items } = resData;
+      setCountTotal(items.length);
       setIsLoading(false);
       setResponseData(items);
     } catch (error: any) {
@@ -104,20 +104,6 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     document.title = "Github Repository";
-
-    let sentenceIndex = 0;
-
-    const typingInterval = setInterval(() => {
-      setText((prevText) => prevText + sentence[sentenceIndex]);
-      sentenceIndex++;
-
-      if (sentenceIndex === sentence.length) {
-        setIsTyping(false);
-        clearInterval(typingInterval);
-      }
-    }, 100);
-
-    return () => clearInterval(typingInterval);
   }, []);
 
   return (
@@ -199,7 +185,9 @@ const Home: React.FC = () => {
             </div>
           </form>
           {searching ? (
-            <p className='mb-2'>Showing users for "{searching}"</p>
+            <p className='mb-2'>
+              Showing users for "{searching}". {countTotal} result
+            </p>
           ) : (
             ""
           )}
