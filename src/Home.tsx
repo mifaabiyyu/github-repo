@@ -281,7 +281,7 @@ const Home: React.FC = () => {
                                   {datas.name}
                                 </a>
                                 <h4 className='flex text-xl font-bold'>
-                                  <p className='mr-2 mt-[3px] text-sm md:text-md'>
+                                  <p className='mr-2 mt-[3px] text-sm md:text-sm'>
                                     {" "}
                                     {datas.forks}
                                   </p>
