@@ -1,26 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Route } from "react-router-dom";
+// import { motion } from "framer-motion";
+// import { useAuth0 } from "@auth0/auth0-react";
+import Login from "./Login";
+import Home from "./Home";
+// import Footer from "./components/Footer";
+import AnimateRoutes from "./components/AnimationRoutes";
+// import { Switch } from "react-router-dom";
 
-function App() {
+const App: React.FC = () => {
+  // const { isAuthenticated } = useAuth0();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AnimateRoutes>
+      <Route path='/' element={<Home />} />
+      {/* <Route path='/home' element={<Home />} /> */}
+    </AnimateRoutes>
   );
-}
+};
 
 export default App;
