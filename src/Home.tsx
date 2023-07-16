@@ -93,9 +93,9 @@ const Home: React.FC = () => {
         return setMessageError(resData.message);
       }
       const { items } = resData;
-      setCountTotal(items.length);
       setIsLoading(false);
       setResponseData(items);
+      setCountTotal(items.length);
     } catch (error: any) {
       setIsLoading(false);
       return setMessageError(error);
@@ -185,7 +185,7 @@ const Home: React.FC = () => {
             </div>
           </form>
           {searching ? (
-            <p className='mb-2'>
+            <p data-testid='showUsers' className='mb-2'>
               Showing users for "{searching}". {countTotal} result
             </p>
           ) : (

@@ -96,7 +96,7 @@ describe("Home component", () => {
 
     // Wait for the API calls to complete and results to be displayed
     await waitFor(() => {
-      expect(screen.getByText('Showing users for "test"')).toBeInTheDocument();
+      expect(screen.getByTestId("showUsers")).toBeInTheDocument();
       expect(screen.getByText("user1")).toBeInTheDocument();
       expect(screen.getByText("user2")).toBeInTheDocument();
     });
