@@ -270,8 +270,8 @@ const Home: React.FC = () => {
                         </>
                       ) : (
                         responseDataRepo.map((datas: any) => (
-                          <li className='mb-2 ml-3' key={datas.id}>
-                            <div className='bg-gray-300 p-2'>
+                          <li className='mb-2 ml-3 ' key={datas.id}>
+                            <div className='bg-gray-300 p-2 rounded-lg'>
                               <div className='flex justify-between'>
                                 <a
                                   href={datas.html_url}
