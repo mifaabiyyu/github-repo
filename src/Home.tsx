@@ -281,11 +281,11 @@ const Home: React.FC = () => {
                                   {datas.name}
                                 </a>
                                 <h4 className='flex text-xl font-bold'>
-                                  <p className='mr-2 mt-[1px] sm:text-xs'>
+                                  <p className='mr-2 mt-[3px] text-sm md:text-md'>
                                     {" "}
                                     {datas.forks}
                                   </p>
-                                  <AiFillStar className='mt-1' />
+                                  <AiFillStar className='mt-1 w-4' />
                                 </h4>
                               </div>
                               <h5 className='text-sm'>{datas.description}</h5>
