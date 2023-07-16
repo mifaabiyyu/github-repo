@@ -23,7 +23,7 @@ const Home: React.FC = () => {
 
   const handleOpen = async (value: any, username: any) => {
     setOpen(open === value ? 0 : value);
-    if (open === 0) {
+    if (open !== value) {
       setIsLoadingRepo(true);
       setResponseDataRepo([]);
       try {
@@ -140,7 +140,7 @@ const Home: React.FC = () => {
           <br />
         </div>
 
-        <div className='flex w-80 lg:w-[450px] md:w-[450px] flex-1 flex-col justify-center '>
+        <div className='flex w-80 mb-24 lg:w-[450px] md:w-[450px] flex-1 flex-col justify-center '>
           {/* <div className='sm:mx-auto sm:w-full sm:max-w-sm'></div> */}
           <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -248,7 +248,7 @@ const Home: React.FC = () => {
                   className='border border-blue-gray-100 px-4 rounded-lg mb-2'>
                   <AccordionHeader
                     onClick={() => handleOpen(data.id, data.login)}
-                    className={`border-b-0 transition-colors ${
+                    className={`border-b-0 transition-colors text-md md:text-xl  ${
                       open === data.id
                         ? "text-blue-500 hover:!text-blue-700"
                         : ""
@@ -276,12 +276,12 @@ const Home: React.FC = () => {
                                 <a
                                   href={datas.html_url}
                                   target='_blank'
-                                  className='text-xl font-bold'
+                                  className='text-md md:text-xl font-bold'
                                   rel='noreferrer'>
                                   {datas.name}
                                 </a>
                                 <h4 className='flex text-xl font-bold'>
-                                  <p className='mr-2 mt-[1px]'>
+                                  <p className='mr-2 mt-[1px] sm:text-xs'>
                                     {" "}
                                     {datas.forks}
                                   </p>
