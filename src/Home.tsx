@@ -77,7 +77,7 @@ const Home: React.FC = () => {
     }
     try {
       const response = await fetch(
-        "https://api.github.com/search/users?q=" + searchData,
+        `https://api.github.com/search/users?q=${searchData}&per_page=100`,
         {
           method: "GET",
           headers: {
@@ -186,7 +186,7 @@ const Home: React.FC = () => {
           </form>
           {searching ? (
             <p data-testid='showUsers' className='mb-2'>
-              Showing users for "{searching}". {countTotal} result
+              Showing users for "{searching}". {countTotal} Results Found
             </p>
           ) : (
             ""
