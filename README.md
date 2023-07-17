@@ -1,6 +1,6 @@
 # GitHub Repositories Explorer
 
-This project build with [React.js](https://react.dev/), [Typescript](https://www.typescriptlang.org/) & [Tailwind.css](https://tailwindcss.com/).
+This project build with [React.js](https://react.dev/), [Typescript](https://www.typescriptlang.org/), [Jest](https://jestjs.io/) & [Tailwind.css](https://tailwindcss.com/).
 
 ## Demo Application
 
