@@ -1,46 +1,39 @@
-# Getting Started with Create React App
+# GitHub Repositories Explorer
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project build with [React.js](https://react.dev/), [Typescript](https://www.typescriptlang.org/) & [Tailwind.css](https://tailwindcss.com/).
 
-## Available Scripts
+## Demo Application
 
-In the project directory, you can run:
+[GitHub Repositories Explorer](https://findmyrepo.vercel.app/)
 
-### `npm start`
+## Installation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Clone Repository on your device
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```bash
+  git clone https://github.com/mifaabiyyu/github-repo.git
+```
 
-### `npm test`
+- Open repository using
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+  cd folder_name
+```
 
-### `npm run build`
+- Install package
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+  npm Install
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Run app
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+  npm start
+```
 
-### `npm run eject`
+- Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## 🚀 [About Me](https://mifa-abiyyu.vercel.app/).
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+A fast learner and goal-reacher software developer graduated as cumlaude who have a really strong analytical skill and logical mind. Excelent problem solver, conceptor, and always seek more experience in software development. My experience to work as Fullstack Developer and Project Manager at the same time makes me able to work in a fast paced working environment, doing a code with several programming language, and leading a teams.
