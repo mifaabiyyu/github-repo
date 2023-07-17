@@ -7,19 +7,20 @@ import {
   AccordionBody,
 } from "@material-tailwind/react";
 import AnimatedText from "./components/AnimatedText";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const Home: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingRepo, setIsLoadingRepo] = useState(false);
   const [searchData, setSeachData] = useState("");
   const [searching, setSeaching] = useState("");
-  const [responseData, setResponseData] = useState([]);
+  const [responseData, setResponseData] = useState(Array);
   const [responseDataRepo, setResponseDataRepo] = useState([]);
   const [open, setOpen] = useState(0);
   const [countTotal, setCountTotal] = useState(0);
   const [messageError, setMessageError] = useState("");
-
-  const sentence = "Hello, world!";
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
 
   const handleOpen = async (value: any, username: any) => {
     setOpen(open === value ? 0 : value);
@@ -71,13 +72,14 @@ const Home: React.FC = () => {
   const handleOnSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-
+    setHasMore(true);
+    setPage(1);
     if (searchData === "") {
       return setMessageError("Please insert username!");
     }
     try {
       const response = await fetch(
-        `https://api.github.com/search/users?q=${searchData}&per_page=100`,
+        `https://api.github.com/search/users?q=${searchData}&per_page=20`,
         {
           method: "GET",
           headers: {
@@ -93,12 +95,59 @@ const Home: React.FC = () => {
         return setMessageError(resData.message);
       }
       const { items } = resData;
+      // newItems =;
+
+      if (page >= Math.ceil(resData.total_count / 20)) {
+        setHasMore(false);
+      }
+
       setIsLoading(false);
       setResponseData(items);
-      setCountTotal(items.length);
+      setCountTotal(resData.total_count);
     } catch (error: any) {
       setIsLoading(false);
       return setMessageError(error);
+    }
+  };
+
+  const handleScroll = async () => {
+    if (searchData !== "") {
+      setIsLoading(true);
+      try {
+        if (page >= Math.ceil(countTotal / 20)) {
+          setHasMore(false);
+        }
+
+        if (hasMore) {
+          setPage(page + 1);
+          const response = await fetch(
+            `https://api.github.com/search/users?q=${searching}&per_page=20&page=${page}`,
+            {
+              method: "GET",
+              headers: {
+                "content-type": "application/json",
+              },
+              //   body: JSON.stringify({ url: newUrl, custom: customUrl }),
+            }
+          );
+          const resData = await response.json();
+          setSeaching(searchData);
+          if (response.status !== 200) {
+            setIsLoading(false);
+            return setMessageError(resData.message);
+          }
+          const { items } = resData;
+          const newItems = [...responseData, ...items];
+          // newItems =;
+
+          setIsLoading(false);
+          setResponseData(newItems);
+          setCountTotal(resData.total_count);
+        }
+      } catch (error: any) {
+        setIsLoading(false);
+        return setMessageError(error);
+      }
     }
   };
 
@@ -228,63 +277,79 @@ const Home: React.FC = () => {
                 </span>
               </div>
             ) : (
-              responseData.map((data: any) => (
-                <Accordion
-                  key={data.id}
-                  open={open === data.id}
-                  icon={<Icon id={data.id} />}
-                  className='border border-blue-gray-100 px-4 rounded-lg mb-2'>
-                  <AccordionHeader
-                    onClick={() => handleOpen(data.id, data.login)}
-                    className={`border-b-0 transition-colors text-md md:text-xl  ${
-                      open === data.id
-                        ? "text-blue-500 hover:!text-blue-700"
-                        : ""
-                    }`}>
-                    {data.login}
-                  </AccordionHeader>
-                  <AccordionBody className='text-base  pt-0'>
-                    <ul>
-                      {isLoadingRepo ? (
-                        <div className='flex justify-center text-center'>
-                          <div
-                            className='w-6 h-6 rounded-full animate-spin
-                    border-y-4 border-dashed border-black border-t-transparent mr-2'></div>
-                          Please wait ..
-                        </div>
-                      ) : responseDataRepo.length === 0 ? (
-                        <>
-                          <div className='text-center'>Data Not found</div>
-                        </>
-                      ) : (
-                        responseDataRepo.map((datas: any) => (
-                          <li className='mb-2 ml-3 ' key={datas.id}>
-                            <div className='bg-gray-300 p-2 rounded-lg'>
-                              <div className='flex justify-between'>
-                                <a
-                                  href={datas.html_url}
-                                  target='_blank'
-                                  className='text-md md:text-xl text-blue-500 font-bold'
-                                  rel='noreferrer'>
-                                  {datas.name}
-                                </a>
-                                <h4 className='flex text-xl font-bold'>
-                                  <p className='mr-2 mt-[3px] text-sm md:text-sm'>
-                                    {" "}
-                                    {datas.forks}
-                                  </p>
-                                  <AiFillStar className='mt-1 w-4' />
-                                </h4>
-                              </div>
-                              <h5 className='text-sm'>{datas.description}</h5>
+              <>
+                <InfiniteScroll
+                  dataLength={responseData.length}
+                  next={handleScroll}
+                  hasMore={hasMore}
+                  loader={isLoading ? <h4>Loading...</h4> : ""}
+                  endMessage={
+                    <p style={{ textAlign: "center" }}>
+                      <b>Yay! You have seen it all</b>
+                    </p>
+                  }>
+                  {" "}
+                  {responseData.map((data: any, index) => (
+                    <Accordion
+                      key={index}
+                      open={open === data.id}
+                      icon={<Icon id={data.id} />}
+                      className='border border-blue-gray-100 px-4 rounded-lg mb-2'>
+                      <AccordionHeader
+                        onClick={() => handleOpen(data.id, data.login)}
+                        className={`border-b-0 transition-colors text-md md:text-xl  ${
+                          open === data.id
+                            ? "text-blue-500 hover:!text-blue-700"
+                            : ""
+                        }`}>
+                        {data.login}
+                      </AccordionHeader>
+                      <AccordionBody className='text-base  pt-0'>
+                        <ul>
+                          {isLoadingRepo ? (
+                            <div className='flex justify-center text-center'>
+                              <div
+                                className='w-6 h-6 rounded-full animate-spin
+              border-y-4 border-dashed border-black border-t-transparent mr-2'></div>
+                              Please wait ..
                             </div>
-                          </li>
-                        ))
-                      )}
-                    </ul>
-                  </AccordionBody>
-                </Accordion>
-              ))
+                          ) : responseDataRepo.length === 0 ? (
+                            <>
+                              <div className='text-center'>Data Not found</div>
+                            </>
+                          ) : (
+                            responseDataRepo.map((datas: any) => (
+                              <li className='mb-2 ml-3 ' key={datas.id}>
+                                <div className='bg-gray-300 p-2 rounded-lg'>
+                                  <div className='flex justify-between'>
+                                    <a
+                                      href={datas.html_url}
+                                      target='_blank'
+                                      className='text-md md:text-xl text-blue-500 font-bold'
+                                      rel='noreferrer'>
+                                      {datas.name}
+                                    </a>
+                                    <h4 className='flex text-xl font-bold'>
+                                      <p className='mr-2 mt-[3px] text-sm md:text-sm'>
+                                        {" "}
+                                        {datas.forks}
+                                      </p>
+                                      <AiFillStar className='mt-1 w-4' />
+                                    </h4>
+                                  </div>
+                                  <h5 className='text-sm'>
+                                    {datas.description}
+                                  </h5>
+                                </div>
+                              </li>
+                            ))
+                          )}
+                        </ul>
+                      </AccordionBody>
+                    </Accordion>
+                  ))}
+                </InfiniteScroll>
+              </>
             )}
           </Fragment>
         </div>
