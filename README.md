@@ -34,6 +34,21 @@ This project build with [React.js](https://react.dev/), [Typescript](https://www
 
 - Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
+## Testing
+
+- Run testing
+
+```bash
+  npm run test
+```
+
+### Test Case
+
+- Renders apps without error.
+- Displays error message if username is not entered.
+- Displays error message if API request fails.
+- Performs search and displays results
+
 ## 🚀 [About Me](https://mifa-abiyyu.vercel.app/).
 
 A fast learner and goal-reacher software developer graduated as cumlaude who have a really strong analytical skill and logical mind. Excelent problem solver, conceptor, and always seek more experience in software development. My experience to work as Fullstack Developer and Project Manager at the same time makes me able to work in a fast paced working environment, doing a code with several programming language, and leading a teams.
