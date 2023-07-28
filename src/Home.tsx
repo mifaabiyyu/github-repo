@@ -72,14 +72,14 @@ const Home: React.FC = () => {
   const handleOnSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    setHasMore(true);
+    setHasMore(false);
     setPage(1);
     if (searchData === "") {
       return setMessageError("Please insert username!");
     }
     try {
       const response = await fetch(
-        `https://api.github.com/search/users?q=${searchData}&per_page=20`,
+        `https://api.github.com/search/users?q=${searchData}&per_page=5`,
         {
           method: "GET",
           headers: {
@@ -121,7 +121,7 @@ const Home: React.FC = () => {
         if (hasMore) {
           setPage(page + 1);
           const response = await fetch(
-            `https://api.github.com/search/users?q=${searching}&per_page=20&page=${page}`,
+            `https://api.github.com/search/users?q=${searching}&per_page=5&page=${page}`,
             {
               method: "GET",
               headers: {
@@ -235,7 +235,7 @@ const Home: React.FC = () => {
           </form>
           {searching ? (
             <p data-testid='showUsers' className='mb-2'>
-              Showing users for "{searching}". {countTotal} Results Found
+              Showing users for "{searching}".
             </p>
           ) : (
             ""
@@ -284,9 +284,10 @@ const Home: React.FC = () => {
                   hasMore={hasMore}
                   loader={isLoading ? <h4>Loading...</h4> : ""}
                   endMessage={
-                    <p style={{ textAlign: "center" }}>
-                      <b>Yay! You have seen it all</b>
-                    </p>
+                    ""
+                    // <p style={{ textAlign: "center" }}>
+                    //   <b>Yay! You have seen it all</b>
+                    // </p>
                   }>
                   {" "}
                   {responseData.map((data: any, index) => (
